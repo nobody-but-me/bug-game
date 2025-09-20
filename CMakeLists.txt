@@ -5,6 +5,7 @@ project(BUG CXX C)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 include_directories(
+	${CMAKE_SOURCE_DIR}/core/libs/glm/
 	${CMAKE_SOURCE_DIR}/core/libs/
 	${CMAKE_SOURCE_DIR}/core/
 )
@@ -24,9 +25,10 @@ file(GLOB_RECURSE SRC_FILES CONFIGURE_DEPENDS
 	# ${CMAKE_SOURCE_DIR}/game/levels/*.cpp
 	# ${CMAKE_SOURCE_DIR}/game/bugs/*.cpp
 )
+find_package(glm CONFIG REQUIRED)
 
 add_executable(bug ${CMAKE_SOURCE_DIR}/core/main.cpp ${SRC_FILES} ${CMAKE_SOURCE_DIR}/core/libs/glad.c)
-target_compile_options(bug PRIVATE -Wall -Werror)
-target_link_libraries(bug PRIVATE glfw)
+target_compile_options(bug PRIVATE -Wall -Werror -Wno-unused-result -Wno-nontrivial-memcall -Wno-unknown-pragmas)
+target_link_libraries(bug PRIVATE glfw glm::glm)
 
 

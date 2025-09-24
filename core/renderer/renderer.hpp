@@ -78,8 +78,8 @@ namespace Gfx
 	
 	int init_rect(Object *object, std::string texture_path, bool alpha, std::string name);
 	
-	int set_object_transform(Gfx::Object *object, Shader *shader);
-	void render_object(Gfx::Object *object, Shader *shader);
+	int set_object_transform(Gfx::Object *object);
+	void render_object(Gfx::Object *object);
 	
 	void init();
     }

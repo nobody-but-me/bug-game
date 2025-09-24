@@ -21,12 +21,9 @@ namespace backEnd
     bool is_window_open() { return glfwIntegration::is_window_open(); }
     
     Gfx::Object quad, quad2;
-    Shader *shader;
     int init(const WindowMode& window_mode) {
 	if (glfwIntegration::init(window_mode) == -1) return -1;
 	Gfx::Renderer::init();
-	
-	shader = Gfx::Renderer::get_main_shader();
 	
 	// NOTE: this logic will be re-placed in the future. It's here for now just for test purposes.
 	Gfx::Renderer::init_rect(&quad, "", false, "Quad");
@@ -52,8 +49,8 @@ namespace backEnd
     
     void update();
     void render() {
-	Gfx::Renderer::render_object(&quad, shader);
-	Gfx::Renderer::render_object(&quad2, shader);
+	Gfx::Renderer::render_object(&quad);
+	Gfx::Renderer::render_object(&quad2);
     }
     void ready() {
 	std::cout << "[INFO] : backend.cpp::ready() : Hello, Dolphine!\n" << std::endl;

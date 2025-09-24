@@ -81,8 +81,8 @@ namespace Gfx
 	    return 0;
 	}
 	
-	int set_object_transform(Gfx::Object *object, Shader *shader) {
-	    molson(use_shader)(shader);
+	int set_object_transform(Gfx::Object *object) {
+	    molson(use_shader)(&main_object_shader);
 	    
 	    glm::mat4 trans = glm::mat4(1.0f);
 	    trans = glm::translate(trans, glm::vec3(object->position));
@@ -94,27 +94,27 @@ namespace Gfx
 	    trans = glm::translate(trans, glm::vec3(-0.5f * object->scale.x, -0.5f * object->scale.y, 0.0f ));
 	    trans = glm::scale(trans, glm::vec3(object->scale, 1.0f));
 	    
-	    if (molson(set_matrix4)("transform", &trans, false, shader) != 0) {
+	    if (molson(set_matrix4)("transform", &trans, false, &main_object_shader) != 0) {
 		std::cerr << "[FAILED] : renderer.cpp::set_object_transform() : Failed to set object transform; " << std::endl;
 		return -1;
 	    }
 	    return 0;
 	}
-	void render_object(Gfx::Object *object, Shader *shader) {
-	    molson(use_shader)(shader);
+	void render_object(Gfx::Object *object) {
+	    molson(use_shader)(&main_object_shader);
 	    
-	    set_object_transform(object, shader);
+	    set_object_transform(object);
 	    if ((object->get_texture_path()) == "") {
 		float colour[] = { object->colour.x / 255, object->colour.y / 255, object->colour.z / 255, object->colour.w / 255 };
-		molson(set_bool)("is_textured", false, shader);
-		if ((molson(set_vector4_f)("colour", colour, false, shader)) != 0) {
+		molson(set_bool)("is_textured", false, &main_object_shader);
+		if ((molson(set_vector4_f)("colour", colour, false, &main_object_shader)) != 0) {
 		    std::cerr << "[FAILED] : renderer.cpp::render_object() : Failed to set colour of object " << object->name << "." << std::endl;
 		    return;
 		}
 	    } else {
 		Texture texture = object->get_texture();
-		molson(set_bool)("is_textured", false, shader);
-		molson(set_int)("object_texture", 0, false, shader);
+		molson(set_bool)("is_textured", false, &main_object_shader);
+		molson(set_int)("object_texture", 0, false, &main_object_shader);
 		
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, texture.id);

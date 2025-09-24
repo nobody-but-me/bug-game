@@ -183,10 +183,8 @@ Texture molson(load_texture)(const char *file_path, bool alpha) {
 int molson(init_shader)(const char *vertex_path, const char *fragment_path, Shader *shader) {
     long buffer_length = 0;
     
-    char *fragment_buffer;
-    char *vertex_buffer;
-    FILE *fragment_code;
-    FILE *vertex_code;
+    char *fragment_buffer, *vertex_buffer;
+    FILE *fragment_code, *vertex_code;
     
     fragment_code = fopen(fragment_path, "r");
     if (fragment_code == NULL) {
@@ -357,7 +355,6 @@ int molson(set_vector4_f)(const char *name, float value[4], bool use_shader, Sha
 }
 
 int molson(set_float)(const char *name, float value, bool use_shader, Shader *shader) {
-    if (value == NULL) return -1;
     if (use_shader) {
 	glUseProgram(shader->ID);
     }
@@ -365,7 +362,6 @@ int molson(set_float)(const char *name, float value, bool use_shader, Shader *sh
     return 0;
 }
 int molson(set_int)(const char *name, int value, bool use_shader, Shader *shader) {
-    if (value == NULL) return -1;
     if (use_shader) {
 	glUseProgram(shader->ID);
     }

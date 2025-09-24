@@ -10,6 +10,7 @@ int main(int argc, char *argv[]) {
 	backEnd::begin_frame();
 	
 	// main loop
+	backEnd::render();
 	
 	backEnd::end_frame();
     }

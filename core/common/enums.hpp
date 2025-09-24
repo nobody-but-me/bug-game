@@ -3,6 +3,12 @@
 #ifndef ENUMS_HPP
 #define ENUMS_HPP
 
+enum class ObjectType
+{
+    TRIANGLE,
+    QUAD
+};
+
 enum class WindowMode
 {
     FULLSCREEN_MODE,

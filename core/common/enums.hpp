@@ -3,7 +3,8 @@
 #ifndef ENUMS_HPP
 #define ENUMS_HPP
 
-enum class WindowMode {
+enum class WindowMode
+{
     FULLSCREEN_MODE,
     WINDOWED_MODE
 };

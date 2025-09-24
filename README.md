@@ -3,20 +3,19 @@
 
 Spiritual version of https://github.com/nobody-but-me/golf-game .
 
-
 # Deadline:
 
 Still not defined.
 
 # Dependencies:
 
- - clang-20 and clang++-20;
- - cmake;
+ - cmake 3.21 or higher;
+ - clang and clang++;
  - ninja;
  - glfw3;
  - ;
 
-# Building
+# Building:
 
 ```bash
 

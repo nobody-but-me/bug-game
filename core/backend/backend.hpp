@@ -5,7 +5,8 @@
 
 #include <common/enums.hpp>
 
-namespace backEnd {
+namespace backEnd
+{
     
     void force_window_close( );
     void destroy_application();
@@ -17,7 +18,7 @@ namespace backEnd {
     void begin_frame();
     void end_frame();
     
-    void update(double delta_time);
+    void update();
     void render();
     void ready();
     

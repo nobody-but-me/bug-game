@@ -1,13 +1,13 @@
 
 #include <iostream>
 #include <string>
-#include <print>
 
 #include <backend/glfw_integration.hpp>
 #include <backend/backend.hpp>
 #include <common/enums.hpp>
 
-namespace backEnd {
+namespace backEnd
+{
     
     void force_window_close( ) { glfwIntegration::force_window_close(); }
     void destroy_application() { glfwIntegration::destroy(); }
@@ -26,10 +26,10 @@ namespace backEnd {
 	glfwIntegration::end_frame();
     }
     
-    void update(double delta_time);
+    void update();
     void render();
     void ready() {
-	std::printf("[INFO] : backend.cpp::ready() : Hello, Dolphine!\n");
+	std::cout << "[INFO] : backend.cpp::ready() : Hello, Dolphine!\n" << std::endl;
     }
     
 }

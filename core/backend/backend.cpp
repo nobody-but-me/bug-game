@@ -32,8 +32,8 @@ namespace backEnd
 	quad.position = glm::vec3(0.0f, 0.0f, 0.0f);
 	quad.scale = glm::vec2(5.0f, 5.0f);
 	
-	Gfx::Renderer::init_rect(&quad2, "", false, "Quad");
-	quad2.colour = glm::vec4(255.0f, 0.0f, 0.0f, 255.0f);
+	Gfx::Renderer::init_rect(&quad2, "../../game/res/sprites/m.png", true, "Quad2");
+	quad2.colour = glm::vec4(255.0f, 255.0f, 255.0f, 255.0f);
 	quad2.rotation = glm::vec3(0.0f, 0.0f, 0.0f);
 	quad2.position = glm::vec3(-2.0f, -2.0f, 0.0f);
 	quad2.scale = glm::vec2(3.0f, 5.0f);

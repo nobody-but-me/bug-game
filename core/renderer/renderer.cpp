@@ -112,8 +112,13 @@ namespace Gfx
 		    return;
 		}
 	    } else {
+		float colour[] = { object->colour.x / 255, object->colour.y / 255, object->colour.z / 255, object->colour.w / 255 };
+		if ((molson(set_vector4_f)("colour", colour, false, &main_object_shader)) != 0) {
+		    std::cerr << "[FAILED] : renderer.cpp::render_object() : Failed to set colour of object " << object->name << "." << std::endl;
+		    return;
+		}
 		Texture texture = object->get_texture();
-		molson(set_bool)("is_textured", false, &main_object_shader);
+		molson(set_bool)("is_textured", true, &main_object_shader);
 		molson(set_int)("object_texture", 0, false, &main_object_shader);
 		
 		glActiveTexture(GL_TEXTURE0);
@@ -150,7 +155,7 @@ namespace Gfx
 	    if ((molson(set_matrix4)("projection", &projection, true, &main_object_shader)) != 0) { std::cerr << "[FAILED] : renderer.cpp::init() : Failed to set main object shader projection uniform variable." << std::endl; }
 	    if ((molson(set_matrix4)("view", &view, true, &main_object_shader)) != 0) { std::cerr << "[FAILED] : renderer.cpp::init() : Failed to set main object shader view uniform variable." << std::endl; }
 	    
-	    // NOTE: bad: hard-coded;
+	    // NOTE: bad: hard-coded; It would be better if, after calling the rect initialize function, the code indentified if the global quad was already loaded or not.
 	    init_global_quad();
 	    return;
 	}

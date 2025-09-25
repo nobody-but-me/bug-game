@@ -59,7 +59,7 @@ namespace glfwIntegration
     void force_window_close() { g_force_window_close = true; return; }
     
     static void glfw_error_callback(int error, const char *description) {
-	std::cout << "[FAILED] : GLFW error : \n[ " << std::to_string(error).c_str() << " ]\n DESCRIPTION: " << description << "." << std::endl;
+	std::cerr << "[FAILED] : GLFW error : \n[ " << std::to_string(error).c_str() << " ]\n DESCRIPTION: " << description << "." << std::endl;
 	return;
     }
     int init(const WindowMode& window_mode) {
@@ -105,14 +105,14 @@ namespace glfwIntegration
 	}
 	
 	if (g_window == NULL) {
-	    std::cout << "[FAILED] : glfw_integration.cpp::init() : Failed to initialize window.\n" << std::endl;
+	    std::cerr << "[FAILED] : glfw_integration.cpp::init() : Failed to initialize window.\n" << std::endl;
 	    glfwTerminate();
 	    return -1;
 	}
 	glfwMakeContextCurrent(g_window);
 	int glad_version = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 	if (!glad_version) {
-	    std::cout << "[FAILED] : glfw_integration.cpp::init() : Failed to intialize OpenGL context. The application is not glad at all.\n" << std::endl;
+	    std::cerr << "[FAILED] : glfw_integration.cpp::init() : Failed to intialize OpenGL context. The application is not glad at all.\n" << std::endl;
 	    glfwTerminate();
 	    return -1;
 	}

@@ -11,6 +11,7 @@
 #include <renderer/renderer.hpp>
 #include <backend/backend.hpp>
 #include <common/enums.hpp>
+#include <math/delta.hpp>
 
 namespace backEnd
 {
@@ -25,7 +26,7 @@ namespace backEnd
 	if (glfwIntegration::init(window_mode) == -1) return -1;
 	Gfx::Renderer::init();
 	
-	// NOTE: this logic will be re-placed in the future. It's here for now just for test purposes.
+	// NOTE: this whole logic will be re-placed in the future. It's here for now just for test purposes.
 	Gfx::Renderer::init_rect(&quad, "", false, "Quad");
 	quad.colour = glm::vec4(0.0f, 255.0f, 0.0f, 255.0f);
 	quad.rotation = glm::vec3(0.0f, 0.0f, 0.0f);
@@ -47,13 +48,30 @@ namespace backEnd
 	glfwIntegration::end_frame();
     }
     
-    void update();
+    void update(float delta) {
+	quad2.rotation.x = (float)glfwGetTime() * 50.0f;
+	quad2.rotation.y = (float)glfwGetTime() * 50.0f;
+	return;
+    }
     void render() {
 	Gfx::Renderer::render_object(&quad);
 	Gfx::Renderer::render_object(&quad2);
     }
     void ready() {
 	std::cout << "[INFO] : backend.cpp::ready() : Hello, Dolphine!\n" << std::endl;
+    }
+    
+    void loop() {
+	begin_frame();
+	
+	math::delta::calculate_delta();
+	while (math::delta::is_frametiming()) {
+	    update(math::delta::get_delta_time());
+	    math::delta::update();
+	}
+	render();
+	
+	end_frame();
     }
     
 }

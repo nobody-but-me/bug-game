@@ -29,13 +29,13 @@ And follow the instructions.
 
  - Renderer:
     - Shapes (ordered from what I think it'll the easier to the hardest):
-	    - [ ] Rectangle;
-		- [ ] Triangle;
-		- [ ] Circle;
-		- [ ] Ellipse;
-		- [ ] Capsule;
-		- [ ] Annulus;
-		- [ ] ;
+	    - [x] Rectangle;
+	    - [ ] Triangle;
+	    - [ ] Circle;
+	    - [ ] Ellipse;
+	    - [ ] Capsule;
+	    - [ ] Annulus;
+	    - [ ] ;
 	 - ;
  - Physics:
     - [ ] Simple collision detection between rectangles;

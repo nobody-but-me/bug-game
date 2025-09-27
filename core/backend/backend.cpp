@@ -30,14 +30,16 @@ namespace backEnd
 	Gfx::Renderer::init_rect(&quad, "", false, "Quad");
 	quad.colour = glm::vec4(0.0f, 255.0f, 0.0f, 255.0f);
 	quad.rotation = glm::vec3(0.0f, 0.0f, 0.0f);
-	quad.position = glm::vec3(0.0f, 0.0f, 0.0f);
+	quad.position = glm::vec2(0.0f, 0.0f);
 	quad.scale = glm::vec2(5.0f, 5.0f);
+	quad.z_index = 5;
 	
 	Gfx::Renderer::init_rect(&quad2, "../../game/res/sprites/m.png", true, "Quad2");
 	quad2.colour = glm::vec4(255.0f, 255.0f, 255.0f, 255.0f);
 	quad2.rotation = glm::vec3(0.0f, 0.0f, 0.0f);
-	quad2.position = glm::vec3(-2.0f, -2.0f, 0.0f);
+	quad2.position = glm::vec2(-2.0f, -2.0f);
 	quad2.scale = glm::vec2(3.0f, 5.0f);
+	quad2.z_index = 0;
 	return 0;
     }
     
@@ -49,8 +51,7 @@ namespace backEnd
     }
     
     void update(float delta) {
-	quad2.rotation.x = (float)glfwGetTime() * 50.0f;
-	quad2.rotation.y = (float)glfwGetTime() * 50.0f;
+	quad2.rotation.z = (float)glfwGetTime() * 50.0f;
 	return;
     }
     void render() {

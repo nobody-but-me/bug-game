@@ -85,13 +85,14 @@ namespace Gfx
 	    molson(use_shader)(&main_object_shader);
 	    
 	    glm::mat4 trans = glm::mat4(1.0f);
-	    trans = glm::translate(trans, glm::vec3(object->position));
+	    trans = glm::translate(trans, glm::vec3(object->position.x, object->position.y, object->z_index));
 	    
 	    trans = glm::translate(trans, glm::vec3( 0.5f * object->scale.x,  0.5f * object->scale.y, 0.0f ));
 	    trans = glm::rotate(trans, glm::radians(object->rotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
 	    trans = glm::rotate(trans, glm::radians(object->rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
 	    trans = glm::rotate(trans, glm::radians(object->rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
 	    trans = glm::translate(trans, glm::vec3(-0.5f * object->scale.x, -0.5f * object->scale.y, 0.0f ));
+	    
 	    trans = glm::scale(trans, glm::vec3(object->scale, 1.0f));
 	    
 	    if (molson(set_matrix4)("transform", &trans, false, &main_object_shader) != 0) {
@@ -150,7 +151,7 @@ namespace Gfx
 	    float win_width = static_cast<float>(glfwIntegration::get_current_window_width()) / 100.0f;
 	    
 	    projection = glm::ortho(win_width * -1.0f, win_width, win_height * -1.0f, win_height, -1.0f, 100.0f);
-	    view  = glm::translate(view, glm::vec3(0.0f, 0.0f, -50.0f));
+	    view  = glm::translate(view, glm::vec3(-3.0f, -2.5f, -50.0f)); // TODO: magic numbers.
 	    
 	    if ((molson(set_matrix4)("projection", &projection, true, &main_object_shader)) != 0) { std::cerr << "[FAILED] : renderer.cpp::init() : Failed to set main object shader projection uniform variable." << std::endl; }
 	    if ((molson(set_matrix4)("view", &view, true, &main_object_shader)) != 0) { std::cerr << "[FAILED] : renderer.cpp::init() : Failed to set main object shader view uniform variable." << std::endl; }

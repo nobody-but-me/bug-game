@@ -82,6 +82,7 @@ namespace glfwIntegration
 	glfwWindowHint(GLFW_GREEN_BITS  , g_mode->greenBits);
 	glfwWindowHint(GLFW_BLUE_BITS   , g_mode->blueBits);
 	glfwWindowHint(GLFW_RED_BITS    , g_mode->redBits);
+	glfwWindowHint(GLFW_SAMPLES, 4);
 	
 	g_fullscreen_height = g_mode->height;
 	g_fullscreen_width = g_mode->width;
@@ -116,6 +117,11 @@ namespace glfwIntegration
 	    glfwTerminate();
 	    return -1;
 	}
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glEnable(GL_MULTISAMPLE);
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_BLEND);
+	
 	std::cout << "[INFO] : glfw_integration.cpp::init() : Window had been configured succesfully.\n" << std::endl;
 	return 0;
     }
@@ -129,6 +135,7 @@ namespace glfwIntegration
 	glfwPollEvents();
 	glClearColor(0.07f, 0.07f, 0.07f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glDepthFunc(GL_LESS);
 	
 	int focused = glfwGetWindowAttrib(g_window, GLFW_FOCUSED);
 	g_window_focused = (focused != 0);

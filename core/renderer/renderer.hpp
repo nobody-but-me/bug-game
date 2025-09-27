@@ -26,6 +26,7 @@ constexpr float RECT_VERTEX_DATA[] = {
 namespace Gfx
 {
     
+    // TODO: re-place this object class definition.
     class Object
     {
 	private:
@@ -40,7 +41,9 @@ namespace Gfx
 	    ObjectType m_type;
 	    
 	public:
-	    glm::vec3 position;
+	    int z_index;
+	    
+	    glm::vec2 position;
 	    glm::vec3 rotation;
 	    glm::vec2 scale;
 	    

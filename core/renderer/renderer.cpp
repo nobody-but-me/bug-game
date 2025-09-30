@@ -23,12 +23,13 @@ namespace Gfx
     
     namespace Renderer
     {
+	// TODO: make a better function for that.
 	static int check_gl_errors() {
 	    GLenum err = glGetError();
 	    if ((err == glGetError()) != GL_NO_ERROR) {
 		if (err == GL_NO_ERROR) return 0;
 		std::string error_message;
-		// tee-hee.
+		
 		if (err == GL_INVALID_FRAMEBUFFER_OPERATION) error_message = "Invalid framebuffer operation.";
 		else if (err == GL_INVALID_OPERATION) error_message        = "Invalid operation.";
 		else if (err == GL_STACK_UNDERFLOW) error_message          = "stack underflow.";
@@ -43,19 +44,19 @@ namespace Gfx
 	    return 0;
 	}
 	
-	unsigned int QUAD_VAO = 0, QUAD_VBO = 0;
-	Shader main_object_shader;
+	unsigned int g_QUAD_VAO = 0, g_QUAD_VBO = 0;
+	Shader g_main_object_shader;
 	
-	Shader *get_main_shader()   { return &main_object_shader; }
-	unsigned int get_quad_vao() { return QUAD_VAO; }
-	unsigned int get_quad_vbo() { return QUAD_VBO; }
+	Shader *get_main_shader()   { return &g_main_object_shader; }
+	unsigned int get_quad_vao() { return g_QUAD_VAO; }
+	unsigned int get_quad_vbo() { return g_QUAD_VBO; }
 	
 	int init_global_quad() {
-	    glGenVertexArrays(1, &QUAD_VAO);
-	    glBindVertexArray(QUAD_VAO);
-	    glGenBuffers(1, &QUAD_VBO);
+	    glGenVertexArrays(1, &g_QUAD_VAO);
+	    glBindVertexArray(g_QUAD_VAO);
+	    glGenBuffers(1, &g_QUAD_VBO);
 	    
-	    glBindBuffer(GL_ARRAY_BUFFER, QUAD_VBO);
+	    glBindBuffer(GL_ARRAY_BUFFER, g_QUAD_VBO);
 	    glBufferData(GL_ARRAY_BUFFER, sizeof(RECT_VERTEX_DATA), RECT_VERTEX_DATA, GL_STATIC_DRAW);
 	    
 	    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
@@ -82,7 +83,7 @@ namespace Gfx
 	}
 	
 	int set_object_transform(Gfx::Object *object) {
-	    molson(use_shader)(&main_object_shader);
+	    molson(use_shader)(&g_main_object_shader);
 	    
 	    glm::mat4 trans = glm::mat4(1.0f);
 	    trans = glm::translate(trans, glm::vec3(object->position.x, object->position.y, object->z_index));
@@ -95,32 +96,32 @@ namespace Gfx
 	    
 	    trans = glm::scale(trans, glm::vec3(object->scale, 1.0f));
 	    
-	    if (molson(set_matrix4)("transform", &trans, false, &main_object_shader) != 0) {
+	    if (molson(set_matrix4)("transform", &trans, false, &g_main_object_shader) != 0) {
 		std::cerr << "[FAILED] : renderer.cpp::set_object_transform() : Failed to set object transform; " << std::endl;
 		return -1;
 	    }
 	    return 0;
 	}
 	void render_object(Gfx::Object *object) {
-	    molson(use_shader)(&main_object_shader);
+	    molson(use_shader)(&g_main_object_shader);
 	    
 	    set_object_transform(object);
 	    if ((object->get_texture_path()) == "") {
 		float colour[] = { object->colour.x / 255, object->colour.y / 255, object->colour.z / 255, object->colour.w / 255 };
-		molson(set_bool)("is_textured", false, &main_object_shader);
-		if ((molson(set_vector4_f)("colour", colour, false, &main_object_shader)) != 0) {
+		molson(set_bool)("is_textured", false, &g_main_object_shader);
+		if ((molson(set_vector4_f)("colour", colour, false, &g_main_object_shader)) != 0) {
 		    std::cerr << "[FAILED] : renderer.cpp::render_object() : Failed to set colour of object " << object->name << "." << std::endl;
 		    return;
 		}
 	    } else {
 		float colour[] = { object->colour.x / 255, object->colour.y / 255, object->colour.z / 255, object->colour.w / 255 };
-		if ((molson(set_vector4_f)("colour", colour, false, &main_object_shader)) != 0) {
+		if ((molson(set_vector4_f)("colour", colour, false, &g_main_object_shader)) != 0) {
 		    std::cerr << "[FAILED] : renderer.cpp::render_object() : Failed to set colour of object " << object->name << "." << std::endl;
 		    return;
 		}
 		Texture texture = object->get_texture();
-		molson(set_bool)("is_textured", true, &main_object_shader);
-		molson(set_int)("object_texture", 0, false, &main_object_shader);
+		molson(set_bool)("is_textured", true, &g_main_object_shader);
+		molson(set_int)("object_texture", 0, false, &g_main_object_shader);
 		
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, texture.id);
@@ -131,7 +132,7 @@ namespace Gfx
 	    {
 		
 	    case ObjectType::QUAD:
-		glBindVertexArray(QUAD_VAO);
+		glBindVertexArray(g_QUAD_VAO);
 		glDrawArrays(GL_TRIANGLES, 0, 6);
 		glBindVertexArray(0);
 		break;
@@ -143,20 +144,20 @@ namespace Gfx
 	}
 	
 	void init() {
-	    molson(init_shader)(SHADER_PATH"object.vert", SHADER_PATH"object.frag", &main_object_shader);
+	    molson(init_shader)(SHADER_PATH"object.vert", SHADER_PATH"object.frag", &g_main_object_shader);
 	    glm::mat4 projection = glm::mat4(1.0f);
 	    glm::mat4 view = glm::mat4(1.0f);
 	    
-	    float win_height = static_cast<float>(glfwIntegration::get_current_window_height()) / 100.0f;
-	    float win_width = static_cast<float>(glfwIntegration::get_current_window_width()) / 100.0f;
+	    float win_height = static_cast<float>(GlfwIntegration::get_current_window_height()) / 100.0f;
+	    float win_width = static_cast<float>(GlfwIntegration::get_current_window_width()) / 100.0f;
 	    
 	    projection = glm::ortho(win_width * -1.0f, win_width, win_height * -1.0f, win_height, -1.0f, 100.0f);
 	    view  = glm::translate(view, glm::vec3(-3.0f, -2.5f, -50.0f)); // TODO: magic numbers.
 	    
-	    if ((molson(set_matrix4)("projection", &projection, true, &main_object_shader)) != 0) { std::cerr << "[FAILED] : renderer.cpp::init() : Failed to set main object shader projection uniform variable." << std::endl; }
-	    if ((molson(set_matrix4)("view", &view, true, &main_object_shader)) != 0) { std::cerr << "[FAILED] : renderer.cpp::init() : Failed to set main object shader view uniform variable." << std::endl; }
+	    if ((molson(set_matrix4)("projection", &projection, true, &g_main_object_shader)) != 0) { std::cerr << "[FAILED] : renderer.cpp::init() : Failed to set main object shader projection uniform variable." << std::endl; }
+	    if ((molson(set_matrix4)("view", &view, true, &g_main_object_shader)) != 0) { std::cerr << "[FAILED] : renderer.cpp::init() : Failed to set main object shader view uniform variable." << std::endl; }
 	    
-	    // NOTE: bad: hard-coded; It would be better if, after calling the rect initialize function, the code indentified if the global quad was already loaded or not.
+	    // NOTE: bad: kinda hard-coded; It would be better if, after calling the rect initialize function, the code indentified if the global quad was already loaded or not.
 	    init_global_quad();
 	    return;
 	}
@@ -165,4 +166,4 @@ namespace Gfx
 }
 
 // Perspective projection alternative
-// projection = glm::perspective(glm::radians(45.0f), static_cast<float>(glfwIntegration::get_current_window_width()) / static_cast<float>(glfwIntegration::get_current_window_height()), 0.1f, 100.0f);
+// projection = glm::perspective(glm::radians(45.0f), static_cast<float>(GlfwIntegration::get_current_window_width()) / static_cast<float>(glfwIntegration::get_current_window_height()), 0.1f, 100.0f);

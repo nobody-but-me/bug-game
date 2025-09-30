@@ -7,24 +7,32 @@
 #include <glm/vec3.hpp>
 #include <glm/vec2.hpp>
 
-#include <backend/glfw_integration.hpp>
-#include <renderer/renderer.hpp>
-#include <backend/backend.hpp>
 #include <common/enums.hpp>
 #include <math/delta.hpp>
 
-namespace backEnd
+#include <backend/glfw_integration.hpp>
+#include <renderer/renderer.hpp>
+#include <backend/backend.hpp>
+#include <editor/editor.hpp>
+
+namespace BackEnd
 {
     
-    void force_window_close( ) { glfwIntegration::force_window_close(); }
-    void destroy_application() { glfwIntegration::destroy(); }
+    void force_window_close( ) { GlfwIntegration::force_window_close(); }
+    void destroy_application() {
+	Editor::destroy();
+	GlfwIntegration::destroy();
+	return;
+    }
     
-    bool is_window_open() { return glfwIntegration::is_window_open(); }
+    bool is_window_open() { return GlfwIntegration::is_window_open(); }
     
     Gfx::Object quad, quad2;
     int init(const WindowMode& window_mode) {
-	if (glfwIntegration::init(window_mode) == -1) return -1;
+	if (GlfwIntegration::init(window_mode) == -1) return -1;
 	Gfx::Renderer::init();
+	
+	Editor::init(GlfwIntegration::get_current_window());
 	
 	// NOTE: this whole logic will be re-placed in the future. It's here for now just for test purposes.
 	Gfx::Renderer::init_rect(&quad, "", false, "Quad");
@@ -44,10 +52,11 @@ namespace backEnd
     }
     
     void begin_frame() {
-	glfwIntegration::begin_frame();
+	GlfwIntegration::begin_frame();
+	Editor::render();
     }
     void end_frame() {
-	glfwIntegration::end_frame();
+	GlfwIntegration::end_frame();
     }
     
     void update(float delta) {
@@ -65,10 +74,10 @@ namespace backEnd
     void loop() {
 	begin_frame();
 	
-	math::delta::calculate_delta();
-	while (math::delta::is_frametiming()) {
-	    update(math::delta::get_delta_time());
-	    math::delta::update();
+	Math::Delta::calculate_delta();
+	while (Math::Delta::is_frametiming()) {
+	    update(Math::Delta::get_delta_time());
+	    Math::Delta::update();
 	}
 	render();
 	

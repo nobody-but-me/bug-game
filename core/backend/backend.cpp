@@ -53,7 +53,6 @@ namespace BackEnd
     
     void begin_frame() {
 	GlfwIntegration::begin_frame();
-	Editor::render();
     }
     void end_frame() {
 	GlfwIntegration::end_frame();
@@ -66,6 +65,9 @@ namespace BackEnd
     void render() {
 	Gfx::Renderer::render_object(&quad);
 	Gfx::Renderer::render_object(&quad2);
+	
+	Editor::render();
+	return;
     }
     void ready() {
 	std::cout << "[INFO] : backend.cpp::ready() : Hello, Dolphine!\n" << std::endl;

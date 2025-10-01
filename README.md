@@ -28,15 +28,23 @@ And follow the instructions.
 # TODO:
 
  - Renderer:
-    - Shapes (ordered from what I think it'll the easier to the hardest):
-	    - [x] Rectangle;
-	    - [ ] Triangle;
-	    - [ ] Circle;
-	    - [ ] Ellipse;
-	    - [ ] Capsule;
-	    - [ ] Annulus;
-	    - [ ] ;
-	 - ;
+    - Shapes:
+	 - [x] Rectangle;
+	 - [ ] Triangle;
+	 - [ ] Circle;
+	 - [ ] Ellipse;
+	 - [ ] Capsule;
+	 - [ ] Annulus;
+	 - [ ] ;
+    - [ ] Simple 2d lightning;
+    - [ ] ;
+ - Engine:
+    - [ ] Simple resource managment;
+    - [ ] Input handling;
+    - [ ] Object managment;
+    - [ ] Scene Saving/Loading;
+    - [ ] Scene management;
+    - [ ] ;
  - Physics:
     - [ ] Simple collision detection between rectangles;
     - [ ] ;

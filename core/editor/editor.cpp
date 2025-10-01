@@ -12,17 +12,17 @@
 
 #include <editor/editor.hpp>
 
+#define GUI_SCALE ImGui_ImplGlfw_GetContentScaleForMonitor(glfwGetPrimaryMonitor())
 
 namespace Editor
 {
     
-    GLFWwindow *main_window;
+    GLFWwindow *g_main_window;
     
     static float c[3] = {0.0f, 0.0f, 0.0f};
     static int counter = 0;
     static float f = 0.0f;
     static bool b = false;
-    
     
     void destroy() {
 	ImGui_ImplOpenGL3_Shutdown();
@@ -57,8 +57,7 @@ namespace Editor
     }
     
     void init(GLFWwindow *window) {
-	float gui_scale = ImGui_ImplGlfw_GetContentScaleForMonitor(glfwGetPrimaryMonitor());
-	main_window = window;
+	g_main_window = window;
 	
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
@@ -71,10 +70,10 @@ namespace Editor
 	ImGui::StyleColorsDark();
 	
 	ImGuiStyle &style = ImGui::GetStyle();
-	style.ScaleAllSizes(gui_scale);
-	style.FontScaleDpi = gui_scale;
+	style.ScaleAllSizes(GUI_SCALE);
+	style.FontScaleDpi = GUI_SCALE;
 	
-	ImGui_ImplGlfw_InitForOpenGL(main_window, true);
+	ImGui_ImplGlfw_InitForOpenGL(g_main_window, true);
 	ImGui_ImplOpenGL3_Init("#version 330 core"); // TODO: add support for more glsl versions.
     }
     

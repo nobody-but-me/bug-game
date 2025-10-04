@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-#include <res/resource_manager.hpp>
+#include <utils/resource_manager.hpp>
 #include <renderer/renderer.hpp>
 #include <common/object.hpp>
 #include <libs/molson.h>

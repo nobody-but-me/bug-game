@@ -41,7 +41,7 @@ And follow the instructions.
     - [ ] Animated sprites;
     - [ ] ;
  - Engine utils/tools:
-    - [ ] Simple resource manager;
+    - [x] Simple resource manager;
     - [ ] Input handler;
     - [ ] Object manager;
     - [ ] Scene manager;

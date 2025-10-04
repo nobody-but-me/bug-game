@@ -12,10 +12,11 @@
 #include <math/delta.hpp>
 
 #include <backend/glfw_integration.hpp>
-#include <res/resource_manager.hpp>
+#include <utils/resource_manager.hpp>
 #include <renderer/renderer.hpp>
 #include <backend/backend.hpp>
 #include <editor/editor.hpp>
+#include <utils/input.hpp>
 
 namespace BackEnd
 {
@@ -33,12 +34,13 @@ namespace BackEnd
     Texture texture;
     int init(const WindowMode& window_mode) {
 	if (GlfwIntegration::init(window_mode) == -1) return -1;
+	
 	Gfx::Renderer::init();
 	
+	InputManager::init(GlfwIntegration::get_current_window());
 	Editor::init(GlfwIntegration::get_current_window());
 	
 	// NOTE: this whole logic will be re-placed in the future. It's here for now just for test purposes.
-	
 	ResourceManager::load_texture(&texture, "mir", "../../game/res/sprites/m.png", true);
 	
 	ResourceManager::init_rectangle(&quad, "Quad", nullptr);
@@ -73,8 +75,13 @@ namespace BackEnd
     }
     
     void update(float delta) {
-	quad3.rotation.z = (float)glfwGetTime() * 150.0f;
-	quad2.rotation.z = (float)glfwGetTime() * 150.0f;
+	quad2.rotation.z = ((float)glfwGetTime() * 50.0f) * -1.0f;
+	quad3.rotation.z = (float)glfwGetTime() * 50.0f;
+	
+	if (InputManager::is_key_pressed(BUG_LEFT)) quad.position.x -= 5.0f * delta;
+	if (InputManager::is_key_pressed(BUG_RIGHT)) quad.position.x += 5.0f * delta;
+	if (InputManager::is_key_pressed(BUG_UP)) quad.position.y += 5.0f * delta;
+	if (InputManager::is_key_pressed(BUG_DOWN)) quad.position.y -= 5.0f * delta;
 	return;
     }
     void render() {
@@ -89,6 +96,7 @@ namespace BackEnd
     
     void loop() {
 	begin_frame();
+	if (InputManager::is_key_pressed(BUG_ESC)) force_window_close();
 	
 	Math::Delta::calculate_delta();
 	while (Math::Delta::is_frametiming()) {

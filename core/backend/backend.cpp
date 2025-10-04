@@ -7,10 +7,12 @@
 #include <glm/vec3.hpp>
 #include <glm/vec2.hpp>
 
+#include <common/object.hpp>
 #include <common/enums.hpp>
 #include <math/delta.hpp>
 
 #include <backend/glfw_integration.hpp>
+#include <res/resource_manager.hpp>
 #include <renderer/renderer.hpp>
 #include <backend/backend.hpp>
 #include <editor/editor.hpp>
@@ -27,7 +29,8 @@ namespace BackEnd
     
     bool is_window_open() { return GlfwIntegration::is_window_open(); }
     
-    Gfx::Object quad, quad2;
+    Object quad, quad2, quad3;
+    Texture texture;
     int init(const WindowMode& window_mode) {
 	if (GlfwIntegration::init(window_mode) == -1) return -1;
 	Gfx::Renderer::init();
@@ -35,19 +38,30 @@ namespace BackEnd
 	Editor::init(GlfwIntegration::get_current_window());
 	
 	// NOTE: this whole logic will be re-placed in the future. It's here for now just for test purposes.
-	Gfx::Renderer::init_rect(&quad, "", false, "Quad");
+	
+	ResourceManager::load_texture(&texture, "mir", "../../game/res/sprites/m.png", true);
+	
+	ResourceManager::init_rectangle(&quad, "Quad", nullptr);
+	ResourceManager::init_rectangle(&quad2, "Quad2", &texture);
+	ResourceManager::init_rectangle(&quad3, "Quad2", &texture);
+	
 	quad.colour = glm::vec4(0.0f, 255.0f, 0.0f, 255.0f);
 	quad.rotation = glm::vec3(0.0f, 0.0f, 0.0f);
 	quad.position = glm::vec2(0.0f, 0.0f);
 	quad.scale = glm::vec2(5.0f, 5.0f);
 	quad.z_index = 5;
 	
-	Gfx::Renderer::init_rect(&quad2, "../../game/res/sprites/m.png", true, "Quad2");
 	quad2.colour = glm::vec4(255.0f, 255.0f, 255.0f, 255.0f);
 	quad2.rotation = glm::vec3(0.0f, 0.0f, 0.0f);
 	quad2.position = glm::vec2(-2.0f, -2.0f);
 	quad2.scale = glm::vec2(3.0f, 5.0f);
 	quad2.z_index = 0;
+	
+	quad3.colour = glm::vec4(255.0f, 255.0f, 0.0f, 255.0f);
+	quad3.rotation = glm::vec3(0.0f, 0.0f, 0.0f);
+	quad3.position = glm::vec2(2.0f, 2.0f);
+	quad3.scale = glm::vec2(3.0f, 5.0f);
+	quad3.z_index = 0;
 	return 0;
     }
     
@@ -59,12 +73,12 @@ namespace BackEnd
     }
     
     void update(float delta) {
-	quad2.rotation.z = (float)glfwGetTime() * 50.0f;
+	quad3.rotation.z = (float)glfwGetTime() * 150.0f;
+	quad2.rotation.z = (float)glfwGetTime() * 150.0f;
 	return;
     }
     void render() {
-	Gfx::Renderer::render_object(&quad);
-	Gfx::Renderer::render_object(&quad2);
+	ResourceManager::render_objects();
 	
 	Editor::render();
 	return;

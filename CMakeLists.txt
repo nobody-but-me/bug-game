@@ -22,6 +22,7 @@ file(GLOB_RECURSE SRC_FILES CONFIGURE_DEPENDS
 	${CMAKE_SOURCE_DIR}/core/files/*.cpp
 	${CMAKE_SOURCE_DIR}/core/libs/*.cpp
 	${CMAKE_SOURCE_DIR}/core/math/*.cpp
+	${CMAKE_SOURCE_DIR}/core/res/*.cpp
 	
 	${CMAKE_SOURCE_DIR}/game/player/*.cpp
 	${CMAKE_SOURCE_DIR}/game/camera/*.cpp

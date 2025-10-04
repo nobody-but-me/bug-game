@@ -1,5 +1,6 @@
 
 #include <iostream>
+#include <string.h>
 #include <string>
 
 #include <libs/glad.h>
@@ -11,6 +12,7 @@
 
 #include <backend/glfw_integration.hpp>
 #include <renderer/renderer.hpp>
+#include <common/object.hpp>
 #include <common/enums.hpp>
 
 #define MOLSON_IMPLEMENTATION
@@ -69,20 +71,16 @@ namespace Gfx
 	    return check_gl_errors();
 	}
 	
-	int init_rect(Gfx::Object *object, std::string texture_path, bool alpha, std::string name) {
+	int init_rect(Object *object, Texture *texture, std::string name) {
 	    object->set_type(ObjectType::QUAD);
 	    object->name = name;
 	    
-	    if (texture_path != "") {
-		Texture new_texture = molson(load_texture)(texture_path.c_str(), alpha);
-		object->set_texture_path(texture_path);
-		object->set_texture(new_texture);
-		object->set_alpha(alpha);
-	    }
+	    if (texture != nullptr) object->set_texture(texture);
+	    else                    object->set_texture(nullptr);
 	    return 0;
 	}
 	
-	int set_object_transform(Gfx::Object *object) {
+	int set_object_transform(Object *object) {
 	    molson(use_shader)(&g_main_object_shader);
 	    
 	    glm::mat4 trans = glm::mat4(1.0f);
@@ -102,45 +100,40 @@ namespace Gfx
 	    }
 	    return 0;
 	}
-	void render_object(Gfx::Object *object) {
+	void render_object(Object *object) {
+	    Texture *object_texture = object->get_texture();
+	    ObjectType object_type = object->get_type();
 	    molson(use_shader)(&g_main_object_shader);
 	    
-	    set_object_transform(object);
-	    if ((object->get_texture_path()) == "") {
-		float colour[] = { object->colour.x / 255, object->colour.y / 255, object->colour.z / 255, object->colour.w / 255 };
-		molson(set_bool)("is_textured", false, &g_main_object_shader);
-		if ((molson(set_vector4_f)("colour", colour, false, &g_main_object_shader)) != 0) {
-		    std::cerr << "[FAILED] : renderer.cpp::render_object() : Failed to set colour of object " << object->name << "." << std::endl;
-		    return;
-		}
-	    } else {
-		float colour[] = { object->colour.x / 255, object->colour.y / 255, object->colour.z / 255, object->colour.w / 255 };
-		if ((molson(set_vector4_f)("colour", colour, false, &g_main_object_shader)) != 0) {
-		    std::cerr << "[FAILED] : renderer.cpp::render_object() : Failed to set colour of object " << object->name << "." << std::endl;
-		    return;
-		}
-		Texture texture = object->get_texture();
-		molson(set_bool)("is_textured", true, &g_main_object_shader);
-		molson(set_int)("object_texture", 0, false, &g_main_object_shader);
-		
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, texture.id);
+	    float colour[] = { object->colour.x / 255, object->colour.y / 255, object->colour.z / 255, object->colour.w / 255 };
+	    if ((molson(set_vector4_f)("colour", colour, false, &g_main_object_shader)) != 0) {
+		std::cerr << "[FAILED] : renderer.cpp::render_object() : Failed to set colour of object " << object->name << "." << std::endl;
+		return;
 	    }
 	    
-	    ObjectType object_type = object->get_type();
+	    set_object_transform(object);
+	    if (!object_texture) molson(set_bool)("is_textured", false, &g_main_object_shader);
+	    else {
+		molson(set_int)("object_texture", 0, false, &g_main_object_shader);
+		molson(set_bool)("is_textured", true, &g_main_object_shader);
+		
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, object_texture->id);
+	    }
+	    
 	    switch (object_type)
 	    {
 		
-	    case ObjectType::QUAD:
-		glBindVertexArray(g_QUAD_VAO);
-		glDrawArrays(GL_TRIANGLES, 0, 6);
-		glBindVertexArray(0);
-		break;
-	    case ObjectType::TRIANGLE:
-		break;
-		
-	    }
-	    return;
+		case ObjectType::QUAD:
+		    glBindVertexArray(g_QUAD_VAO);
+		    glDrawArrays(GL_TRIANGLES, 0, 6);
+		    glBindVertexArray(0);
+		    break;
+		case ObjectType::TRIANGLE:
+		    break;
+		    
+		}
+		return;
 	}
 	
 	void init() {

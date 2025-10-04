@@ -36,14 +36,15 @@ And follow the instructions.
 	 - [ ] Capsule;
 	 - [ ] Annulus;
 	 - [ ] ;
+    - [x] Texture loader;
     - [ ] Simple 2d lightning;
+    - [ ] Animated sprites;
     - [ ] ;
- - Engine:
-    - [ ] Simple resource managment;
-    - [ ] Input handling;
-    - [ ] Object managment;
-    - [ ] Scene Saving/Loading;
-    - [ ] Scene management;
+ - Engine utils/tools:
+    - [ ] Simple resource manager;
+    - [ ] Input handler;
+    - [ ] Object manager;
+    - [ ] Scene manager;
     - [ ] ;
  - Physics:
     - [ ] Simple collision detection between rectangles;

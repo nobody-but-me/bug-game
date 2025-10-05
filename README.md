@@ -42,8 +42,9 @@ And follow the instructions.
     - [ ] ;
  - Engine utils/tools:
     - [x] Simple resource manager;
-    - [ ] Input handler;
-    - [ ] Object manager;
+    - [x] Simple Logging library;
+    - [x] Input handler;
+    - [ ] Memory manager;
     - [ ] Scene manager;
     - [ ] ;
  - Physics:

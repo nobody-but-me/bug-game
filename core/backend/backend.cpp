@@ -30,7 +30,7 @@ namespace BackEnd
     
     bool is_window_open() { return GlfwIntegration::is_window_open(); }
     
-    Object quad, quad2, quad3;
+    Object quad, quad2;
     Texture texture;
     int init(const WindowMode& window_mode) {
 	if (GlfwIntegration::init(window_mode) == -1) return -1;
@@ -45,7 +45,6 @@ namespace BackEnd
 	
 	ResourceManager::init_rectangle(&quad, "Quad", nullptr);
 	ResourceManager::init_rectangle(&quad2, "Quad2", &texture);
-	ResourceManager::init_rectangle(&quad3, "Quad2", &texture);
 	
 	quad.colour = glm::vec4(0.0f, 255.0f, 0.0f, 255.0f);
 	quad.rotation = glm::vec3(0.0f, 0.0f, 0.0f);
@@ -58,12 +57,6 @@ namespace BackEnd
 	quad2.position = glm::vec2(-2.0f, -2.0f);
 	quad2.scale = glm::vec2(3.0f, 5.0f);
 	quad2.z_index = 0;
-	
-	quad3.colour = glm::vec4(255.0f, 255.0f, 0.0f, 255.0f);
-	quad3.rotation = glm::vec3(0.0f, 0.0f, 0.0f);
-	quad3.position = glm::vec2(2.0f, 2.0f);
-	quad3.scale = glm::vec2(3.0f, 5.0f);
-	quad3.z_index = 0;
 	return 0;
     }
     
@@ -76,7 +69,6 @@ namespace BackEnd
     
     void update(float delta) {
 	quad2.rotation.z = ((float)glfwGetTime() * 50.0f) * -1.0f;
-	quad3.rotation.z = (float)glfwGetTime() * 50.0f;
 	
 	if (InputManager::is_key_pressed(BUG_LEFT)) quad.position.x -= 5.0f * delta;
 	if (InputManager::is_key_pressed(BUG_RIGHT)) quad.position.x += 5.0f * delta;

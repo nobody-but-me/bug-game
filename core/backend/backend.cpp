@@ -17,6 +17,7 @@
 #include <backend/backend.hpp>
 #include <editor/editor.hpp>
 #include <utils/input.hpp>
+#include <utils/log.hpp>
 
 namespace BackEnd
 {
@@ -57,6 +58,8 @@ namespace BackEnd
 	quad2.position = glm::vec2(-2.0f, -2.0f);
 	quad2.scale = glm::vec2(3.0f, 5.0f);
 	quad2.z_index = 0;
+	
+	Logging::NOTE("backend.cpp::init() : backend initialized successfully.");
 	return 0;
     }
     
@@ -82,10 +85,7 @@ namespace BackEnd
 	Editor::render();
 	return;
     }
-    void ready() {
-	std::cout << "[INFO] : backend.cpp::ready() : Hello, Dolphine!\n" << std::endl;
-    }
-    
+    void ready() { Logging::INFO("Hello, Dolphine!\n"); }
     void loop() {
 	begin_frame();
 	if (InputManager::is_key_pressed(BUG_ESC)) force_window_close();

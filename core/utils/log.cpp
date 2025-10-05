@@ -103,7 +103,7 @@ namespace Logging
 	char *new_string = (char*)malloc(length);
 	snprintf(new_string, length, "%s%s", note, text);
 	
-	MESSAGE(Colours::Colour::WHITE, Colours::Colour::BLACK, new_string, args);
+	MESSAGE(Colours::Colour::WHITE, Colours::Colour::NONE, new_string, args);
 	va_end(args);
 	return;
     }

@@ -29,13 +29,13 @@ And follow the instructions.
 
  - Renderer:
     - Shapes:
-	 - [x] Rectangle;
-	 - [ ] Triangle;
-	 - [ ] Circle;
-	 - [ ] Ellipse;
-	 - [ ] Capsule;
-	 - [ ] Annulus;
-	 - [ ] ;
+         - [x] Rectangle;
+         - [ ] Triangle;
+         - [ ] Circle;
+         - [ ] Ellipse;
+         - [ ] Capsule;
+         - [ ] Annulus;
+         - [ ] ;
     - [x] Texture loader;
     - [ ] Simple 2d lightning;
     - [ ] Animated sprites;

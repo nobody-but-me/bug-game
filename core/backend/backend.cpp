@@ -39,9 +39,8 @@ namespace BackEnd
 	Gfx::Renderer::init();
 	
 	InputManager::init(GlfwIntegration::get_current_window());
-	Editor::init(GlfwIntegration::get_current_window());
 	
-	// NOTE: this whole logic will be re-placed in the future. It's here for now just for test purposes.
+	// -- NOTE: this whole logic will be re-placed in the future. It's here for now just for test purposes.
 	ResourceManager::load_texture(&texture, "mir", "../../game/res/sprites/m.png", true);
 	
 	ResourceManager::init_rectangle(&quad, "Quad", nullptr);
@@ -58,7 +57,9 @@ namespace BackEnd
 	quad2.position = glm::vec2(-2.0f, -2.0f);
 	quad2.scale = glm::vec2(3.0f, 5.0f);
 	quad2.z_index = 0;
+	// -- 
 	
+	Editor::init(GlfwIntegration::get_current_window());
 	Logging::NOTE("backend.cpp::init() : backend initialized successfully.");
 	return 0;
     }

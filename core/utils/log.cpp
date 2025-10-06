@@ -22,13 +22,11 @@ namespace Logging
     }
     
     static void MESSAGE(Colours::Colour foreground_colour = Colours::Colour::NONE, Colours::Colour background_colour = Colours::Colour::NONE, const char *string = "", va_list args = NULL) {
-	char token[1000];
-	int index = 0;
+	char token[1000]; int index = 0;
 	for (int i = 0; string[i] != '\0'; i++) {
 	    token[index++] = string[i];
 	    if (string[i + 1] == '%' || string[i + 1] == '\0') {
-		token[index] = '\0';
-		index = 0;
+		token[index] = '\0'; index = 0;
 		if (token[0] != '%') fprintf(stdout, "%s%s", set_colour(foreground_colour, background_colour).c_str(), token);
 		else {
 		    char character_type = 0;

@@ -120,6 +120,12 @@ namespace Gfx
 		
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, object_texture->id);
+		
+		if (object->animated) {
+		    molson(set_int)("columns", object->cols, true, &g_main_object_shader);
+		    molson(set_int)("rows", object->rows, true, &g_main_object_shader);
+		    molson(set_bool)("is_animated", true, &g_main_object_shader);
+		}
 	    }
 	    
 	    switch (object_type)

@@ -22,6 +22,8 @@ class Object: public Singleton<Object>
 	ObjectType m_type;
 	
     public:
+	bool animated = false;
+	int rows, cols = 1;
 	int z_index;
 	
 	glm::vec2 position;

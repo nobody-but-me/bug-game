@@ -11,6 +11,7 @@
 #include "libs/imgui/imgui_impl_opengl3.h"
 
 #include <utils/resource_manager.hpp>
+#include <renderer/renderer.hpp>
 #include <editor/editor.hpp>
 #include <common/object.hpp>
 #include <utils/log.hpp>
@@ -21,8 +22,7 @@ namespace Editor
 {
     
     GLFWwindow *g_main_window;
-    
-    Object *quad;
+    Object *sprite;
     
     static float quad_colour[3];
     
@@ -43,9 +43,9 @@ namespace Editor
 	// ImGui::SliderFloat("Float slider", &f, 0.0f, 1.0f);
 	
 	if (ImGui::ColorEdit3("  Quad Colour", (float *)&quad_colour)) {
-	    quad->colour.x = quad_colour[0] * 255.0f;
-	    quad->colour.y = quad_colour[1] * 255.0f;
-	    quad->colour.z = quad_colour[2] * 255.0f;
+	    sprite->colour.x = quad_colour[0] * 255.0f;
+	    sprite->colour.y = quad_colour[1] * 255.0f;
+	    sprite->colour.z = quad_colour[2] * 255.0f;
 	}
 	
 	ImGuiIO &io = ImGui::GetIO(); (void)io;
@@ -79,11 +79,11 @@ namespace Editor
 	ImGui_ImplOpenGL3_Init("#version 330 core"); // TODO: add support for more glsl versions.
 	
 	// having fun.
-	quad = ResourceManager::get_object("Quad");
-	if (quad != NULL) {
-	    quad_colour[0] = quad->colour.x / 255.0f;
-	    quad_colour[1] = quad->colour.y / 255.0f;
-	    quad_colour[2] = quad->colour.z / 255.0f;
+	sprite = ResourceManager::get_object("Sprite");
+	if (sprite != NULL) {
+	    quad_colour[0] = sprite->colour.x / 255.0f;
+	    quad_colour[1] = sprite->colour.y / 255.0f;
+	    quad_colour[2] = sprite->colour.z / 255.0f;
 	}
     }
     

@@ -17,6 +17,6 @@ public:
 	static T instance;
 	return &instance;
     }
-}
+};
 
 #endif//SINGLETON_HPP

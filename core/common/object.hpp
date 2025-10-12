@@ -7,10 +7,11 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/glm.hpp>
 
+#include <utils/singleton.hpp>
 #include <common/enums.hpp>
 #include <libs/molson.h>
 
-class Object
+class Object: public Singleton<Object>
 {
     private:
 	unsigned int m_indices;

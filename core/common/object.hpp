@@ -7,6 +7,7 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/glm.hpp>
 
+#include <common/animation.hpp>
 #include <utils/singleton.hpp>
 #include <common/enums.hpp>
 #include <libs/molson.h>
@@ -23,7 +24,9 @@ class Object: public Singleton<Object>
 	
     public:
 	bool animated = false;
+	Animation animation;
 	int rows, cols = 1;
+	
 	int z_index;
 	
 	glm::vec2 position;

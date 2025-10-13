@@ -51,6 +51,13 @@ enum KEYCODES {
     
 };
 
+enum class AnimationType
+{
+    PING_PONG,
+    LOOP,
+    ONCE,
+};
+
 enum class ObjectType
 {
     TRIANGLE,

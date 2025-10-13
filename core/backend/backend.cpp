@@ -49,25 +49,26 @@ namespace BackEnd
 	
 	sprite.colour = glm::vec4(255.0f, 255.0f, 255.0f, 255.0f);
 	sprite.rotation = glm::vec3(0.0f, 0.0f, 0.0f);
-	sprite.position = glm::vec2(0.0f, 0.0f);
+	sprite.position = glm::vec2(-2.5f, 0.0f);
 	sprite.scale = glm::vec2(5.0f, 5.0f);
 	sprite.z_index = 0;
 	
 	sprite2.colour = glm::vec4(255.0f, 255.0f, 255.0f, 255.0f);
-	sprite2.rotation = glm::vec3(0.0f, 0.0f, 45.0f);
-	sprite2.position = glm::vec2(-2.0f, -2.0f);
-	sprite2.scale = glm::vec2(3.0f, 3.0f);
+	sprite2.rotation = glm::vec3(0.0f, 0.0f, 0.0f);
+	sprite2.position = glm::vec2(10.0f, 0.0f);
+	sprite2.scale = glm::vec2(-5.0f, 5.0f);
 	sprite2.z_index = -5;
 	
 	sprite2.animated = true; sprite.animated = true;
 	sprite2.rows = 8; sprite2.cols = 8;
 	sprite.rows = 8; sprite.cols = 8;
 	
-	ResourceManager::init_animation(&sprite.animation, "animation", AnimationType::LOOP, 5, 0, true); 
-	ResourceManager::init_animation(&sprite2.animation, "animation2", AnimationType::LOOP, 3, 0, true); 
+	ResourceManager::init_animation(&sprite.animation , "animation" , AnimationType::ONCE, 3, 0, true);
+	ResourceManager::init_animation(&sprite2.animation, "animation2", AnimationType::PING_PONG, 5, 0, true);
+	
 	// NOTE: Are the bellow numbers magic-numbers? Sort of. These are the frame numbers relative to the sprite sheet loaded by this object. This will be useful when the game engine have a visual animation timeline where you will be able to set up the frames visually, just like in game engines like unity and godot, for example.
-	sprite.animation.set_frames({9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21});
-	sprite2.animation.set_frames({ 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54 });
+	sprite2.animation.set_frames({9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21});
+	sprite.animation.set_frames({ 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 1 });
 	
 	// -- 
 	
@@ -84,7 +85,6 @@ namespace BackEnd
     }
     
     void update(float delta) {
-	// molson(set_int)("index", sprite.animation.get_index(), true, Gfx::Renderer::get_main_shader());
 	return;
     }
     void render() {

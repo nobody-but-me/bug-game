@@ -74,7 +74,7 @@ namespace GlfwIntegration
 	glfwWindowHint(GLFW_SAMPLES, 4);
 	
 	glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
-	glfwWindowHint(GLFW_VISIBLE, GLFW_TRUE);
+	glfwWindowHint(GLFW_VISIBLE  , GLFW_TRUE );
 	
 	g_monitor = glfwGetPrimaryMonitor( );
 	g_mode = glfwGetVideoMode(g_monitor);
@@ -83,7 +83,6 @@ namespace GlfwIntegration
 	glfwWindowHint(GLFW_GREEN_BITS  , g_mode->greenBits);
 	glfwWindowHint(GLFW_BLUE_BITS   , g_mode->blueBits);
 	glfwWindowHint(GLFW_RED_BITS    , g_mode->redBits);
-	glfwWindowHint(GLFW_SAMPLES, 4);
 	
 	g_fullscreen_height = g_mode->height;
 	g_fullscreen_width = g_mode->width;
@@ -118,12 +117,12 @@ namespace GlfwIntegration
 	    glfwTerminate();
 	    return -1;
 	}
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glEnable(GL_BLEND); glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glEnable(GL_SAMPLE_ALPHA_TO_COVERAGE); // NOTE: alpha to coverage method to render transparency. Study depth peeling later.
 	glEnable(GL_MULTISAMPLE);
 	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_BLEND);
 	
-	Logging::NOTE("glfw_integration.cpp::init() : Window had been configured successfully.");
+	Logging::INFO("glfw_integration.cpp::init() : Window had been configured successfully.");
 	return 0;
     }
     void destroy() {

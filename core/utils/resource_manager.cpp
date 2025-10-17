@@ -31,7 +31,7 @@ namespace ResourceManager
     Object *get_object(std::string object_name) {
 	auto object = std::find_if(g_objects.begin(), g_objects.end(), [&](const Object *obj) { return obj->name == object_name; });
 	if (object != g_objects.end()) { 
-	    Logging::NOTE("resource_manager.cpp::get_object() : Object had been found successfully");
+	    Logging::INFO("resource_manager.cpp::get_object() : Object had been found successfully");
 	    return *object;
 	} else {
 	    Logging::ERROR("resource_manager.cpp::get_object() : Object not found.");

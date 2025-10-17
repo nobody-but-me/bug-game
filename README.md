@@ -38,13 +38,12 @@ And follow the instructions.
          - [ ] ;
     - [x] Texture loader;
     - [ ] Simple 2d lightning;
-    - [ ] Animated sprites;
+    - [x] Animated sprites;
     - [ ] ;
  - Engine utils/tools:
     - [x] Simple resource manager;
     - [x] Simple Logging library;
     - [x] Input handler;
-    - [ ] Memory manager;
     - [ ] Scene manager;
     - [ ] ;
  - Physics:

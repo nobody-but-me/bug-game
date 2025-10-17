@@ -120,13 +120,13 @@ BLANK:
 
 // -- Texture loading and generating.
 static void init_texture(Texture *texture) {
-    texture->height = 0;
-    texture->width = 0;
+    texture->filter_min = GL_LINEAR;
+    texture->filter_max = GL_LINEAR;
     texture->image_format = GL_RGB;
     texture->wrap_s = GL_REPEAT;
     texture->wrap_t = GL_REPEAT;
-    texture->filter_min = GL_LINEAR;
-    texture->filter_max = GL_LINEAR;
+    texture->height = 0;
+    texture->width = 0;
     
     glGenTextures(1, &texture->id);
     return;
@@ -150,6 +150,7 @@ static void generate_texture(unsigned int width, unsigned int height, unsigned c
 Texture molson(load_texture)(const char *name, const char *file_path, bool alpha) {
     Texture new_texture;
     init_texture(&new_texture);
+    
     // Setting alpha format if alpha parameters is true
     if (alpha) {
 	new_texture.internal_format = GL_RGBA;

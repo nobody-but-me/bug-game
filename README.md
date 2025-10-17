@@ -35,18 +35,20 @@ And follow the instructions.
          - [ ] Ellipse;
          - [ ] Capsule;
          - [ ] Annulus;
-         - [ ] ;
+         - [ ] .
     - [x] Texture loader;
     - [ ] Simple 2d lightning;
     - [x] Animated sprites;
-    - [ ] ;
+    - [ ] .
  - Engine utils/tools:
     - [x] Simple resource manager;
     - [x] Simple Logging library;
     - [x] Input handler;
     - [ ] Scene manager;
-    - [ ] ;
+         - [ ] Read and parse custom format and data files;
+	 - [ ] .
+    - [ ] .
  - Physics:
-    - [ ] Simple collision detection between rectangles;
-    - [ ] ;
- - ;
+    - [x] Simple collision detection between rectangles;
+    - [ ] .
+ - .

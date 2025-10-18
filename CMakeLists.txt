@@ -8,6 +8,7 @@ add_executable(bug)
 include_directories(
 	${CMAKE_SOURCE_DIR}/core/libs/imgui/
 	${CMAKE_SOURCE_DIR}/core/libs/glm/
+	${CMAKE_SOURCE_DIR}/application/
 	${CMAKE_SOURCE_DIR}/core/libs/
 	${CMAKE_SOURCE_DIR}/core/
 )
@@ -24,10 +25,7 @@ file(GLOB_RECURSE SRC_FILES CONFIGURE_DEPENDS
 	${CMAKE_SOURCE_DIR}/core/math/*.cpp
 	${CMAKE_SOURCE_DIR}/core/res/*.cpp
 	
-	${CMAKE_SOURCE_DIR}/game/player/*.cpp
-	${CMAKE_SOURCE_DIR}/game/camera/*.cpp
-	${CMAKE_SOURCE_DIR}/game/levels/*.cpp
-	${CMAKE_SOURCE_DIR}/game/bugs/*.cpp
+	${CMAKE_SOURCE_DIR}/application/*.cpp
 )
 
 if (UNIX)

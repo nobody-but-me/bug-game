@@ -30,11 +30,11 @@ And follow the instructions.
  - Renderer:
     - Shapes:
          - [x] Rectangle;
-         - [ ] Triangle;
          - [ ] Circle;
          - [ ] Ellipse;
          - [ ] Capsule;
          - [ ] Annulus;
+         - [ ] Triangle -- final boss;
          - [ ] .
     - [x] Texture loader;
     - [ ] Simple 2d lightning;

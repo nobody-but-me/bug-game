@@ -18,11 +18,8 @@ namespace BackEnd
     void begin_frame();
     void end_frame();
     
-    void loop();
-    
-    void update(float delta);
     void render();
-    void ready();
+    void loop();
     
 }
 

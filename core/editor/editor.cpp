@@ -10,10 +10,7 @@
 #include "libs/imgui/imgui_impl_glfw.h"
 #include "libs/imgui/imgui_impl_opengl3.h"
 
-#include <utils/resource_manager.hpp>
-#include <renderer/renderer.hpp>
 #include <editor/editor.hpp>
-#include <common/object.hpp>
 #include <utils/log.hpp>
 
 #define GUI_SCALE ImGui_ImplGlfw_GetContentScaleForMonitor(glfwGetPrimaryMonitor())
@@ -22,9 +19,6 @@ namespace Editor
 {
     
     GLFWwindow *g_main_window;
-    Object *sprite;
-    
-    static float quad_colour[3];
     
     void destroy() {
 	ImGui_ImplOpenGL3_Shutdown();
@@ -41,15 +35,8 @@ namespace Editor
 	ImGui::Begin("DearImGui window example");
 	
 	// ImGui::SliderFloat("Float slider", &f, 0.0f, 1.0f);
-	
-	if (ImGui::ColorEdit3("  Quad Colour", (float *)&quad_colour)) {
-	    sprite->colour.x = quad_colour[0] * 255.0f;
-	    sprite->colour.y = quad_colour[1] * 255.0f;
-	    sprite->colour.z = quad_colour[2] * 255.0f;
-	}
-	
 	ImGuiIO &io = ImGui::GetIO(); (void)io;
-	ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
+	ImGui::Text("%.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
 	
 	ImGui::End();
 	
@@ -78,13 +65,6 @@ namespace Editor
 	ImGui_ImplGlfw_InitForOpenGL(g_main_window, true);
 	ImGui_ImplOpenGL3_Init("#version 330 core"); // TODO: add support for more glsl versions.
 	
-	// having fun.
-	sprite = ResourceManager::get_object("Sprite");
-	if (sprite != NULL) {
-	    quad_colour[0] = sprite->colour.x / 255.0f;
-	    quad_colour[1] = sprite->colour.y / 255.0f;
-	    quad_colour[2] = sprite->colour.z / 255.0f;
-	}
     }
     
 }

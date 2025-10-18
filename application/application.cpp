@@ -21,7 +21,7 @@ namespace Application {
 	sprite2.position.x -= speed * delta;
 	offset.position = sprite2.position;
 	
-	if (sprite2.position.x < -8.0f || sprite2.position.x > 10.0f) speed *= -1.0f;
+	if (sprite2.position.x <= -8.0f || sprite2.position.x >= 10.0f) speed *= -1.0f;
 
 	if (Physics::is_rect_colliding(&sprite2, &sprite)) sprite2.colour = glm::vec4(255.0f, 0.0f  , 0.0f  , 255.0f);
 	else                                               sprite2.colour = glm::vec4(255.0f, 255.0f, 255.0f, 255.0f);

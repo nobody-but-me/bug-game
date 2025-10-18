@@ -41,6 +41,7 @@ namespace BackEnd
 	
 	Editor::init(GlfwIntegration::get_current_window());
 	Logging::INFO("backend.cpp::init() : backend initialized successfully.");
+	Logging::NOTE("Hello, Dolphine!\n");
 	return 0;
     }
     
@@ -51,29 +52,24 @@ namespace BackEnd
 	GlfwIntegration::end_frame();
     }
     
-    void update(float delta) {
-	Application::process(delta);
-	return;
-    }
-    void render() {
-	ResourceManager::render_objects();
-	ResourceManager::play_animations();
-	Editor::render();
-	return;
-    }
-    void ready() { Logging::NOTE("Hello, Dolphine!\n"); }
     void loop() {
 	begin_frame();
 	if (InputManager::is_key_pressed(BUG_ESC)) force_window_close();
 	
 	Math::Delta::calculate_delta();
 	while (Math::Delta::is_frametiming()) {
-	    update(Math::Delta::get_delta_time());
+	    Application::process(Math::Delta::get_delta_time());
 	    Math::Delta::update();
 	}
 	render();
 	
 	end_frame();
+    }
+    void render() {
+	ResourceManager::render_objects();
+	ResourceManager::play_animations();
+	Editor::render();
+	return;
     }
     
 }

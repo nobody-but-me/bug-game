@@ -5,7 +5,6 @@
 int main(int argc, char *argv[]) {
     if ((BackEnd::init(WindowMode::WINDOWED_MODE)) == -1) return -1;
     
-    BackEnd::ready();
     while (BackEnd::is_window_open()) BackEnd::loop();
     
     BackEnd::destroy_application();

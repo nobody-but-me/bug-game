@@ -1,6 +1,7 @@
 
 #include <algorithm>
 #include <iostream>
+#include <cstring>
 #include <string>
 #include <vector>
 
@@ -68,10 +69,10 @@ namespace ResourceManager
 	g_textures.emplace_back(texture);
 	return;
     }
-    void load_shader(Shader *shader, std::string shader_name, std::string vertex_shader_path, std::string fragment_shader_path) {
-	if (fragment_shader_path == "") return;
-	if (vertex_shader_path == "") return;
-	molson(init_shader)(shader_name.c_str(), vertex_shader_path.c_str(), fragment_shader_path.c_str(), shader);
+    void load_shader(Shader *shader, const char *shader_name, const char *vertex_shader_path, const char *fragment_shader_path) {
+	if ((strcmp("", fragment_shader_path)) == 0) return;
+	if ((strcmp("", vertex_shader_path)) == 0) return;
+	molson(init_shader)(shader_name, vertex_shader_path, fragment_shader_path, shader);
 	g_shaders.emplace_back(shader);
 	return;
     }
@@ -89,6 +90,7 @@ namespace ResourceManager
 	}
 	return;
     }
+    
     void render_objects() {
 	for (Object *obj : g_objects) {
 	    Gfx::Renderer::render_object(obj);

@@ -26,7 +26,7 @@
 namespace BackEnd
 {
     
-    Shader main_shader, single_colour_shader;
+    Shader main_shader;
     
     void force_window_close( ) { GlfwIntegration::force_window_close(); }
     void destroy_application() {
@@ -39,7 +39,6 @@ namespace BackEnd
     
     int init(const WindowMode& window_mode) {
 	if (GlfwIntegration::init(window_mode) == -1) return -1;
-	ResourceManager::load_shader(&single_colour_shader, "single_colour", SHADER_PATH"object.vert", SHADER_PATH"single_colour.frag");
 	ResourceManager::load_shader(&main_shader, "main_shader", SHADER_PATH"object.vert", SHADER_PATH"object.frag");
 	
 	Gfx::Renderer::init();

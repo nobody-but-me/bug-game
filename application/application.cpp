@@ -15,13 +15,13 @@ namespace Application {
     
     Object sprite, sprite2, offset;
     Texture texture;
-    float speed = 3.0f;
+    float speed = 4.0f;
     
     void process(double delta) {
-	sprite2.position.x -= speed * delta;
+	sprite2.position.x += speed * delta;
 	offset.position = sprite2.position;
 	
-	if (sprite2.position.x <= -8.0f || sprite2.position.x >= 10.0f) speed *= -1.0f;
+	if (sprite2.position.x >= 12.0f) sprite2.position.x = -10.0f;
 
 	if (Physics::is_rect_colliding(&sprite2, &sprite)) sprite2.colour = glm::vec4(255.0f, 0.0f  , 0.0f  , 255.0f);
 	else                                               sprite2.colour = glm::vec4(255.0f, 255.0f, 255.0f, 255.0f);
@@ -38,13 +38,13 @@ namespace Application {
 	
 	sprite.colour = glm::vec4(255.0f, 255.0f, 255.0f, 255.0f);
 	sprite.rotation = glm::vec3(0.0f, 0.0f, 0.0f);
-	sprite.position = glm::vec2(-2.5f, 0.0f);
+	sprite.position = glm::vec2(5.0f, 0.0f);
 	sprite.scale = glm::vec2(5.0f, 5.0f);
 	sprite.z_index = 0;
 	
 	sprite2.colour = glm::vec4(255.0f, 255.0f, 255.0f, 255.0f);
 	sprite2.rotation = glm::vec3(0.0f, 0.0f, 0.0f);
-	sprite2.position = glm::vec2(10.0f, 0.0f);
+	sprite2.position = glm::vec2(-5.0f, 0.0f);
 	sprite2.scale = glm::vec2(5.0f, 5.0f);
 	sprite2.selected = true;
 	sprite2.z_index = 0;

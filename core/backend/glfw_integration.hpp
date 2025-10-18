@@ -9,8 +9,8 @@
 #include <common/enums.hpp>
 #include <GLFW/glfw3.h>
 
-#define  DEFAULT_WINDOW_WIDTH  1024
-#define  DEFAULT_WINDOW_HEIGHT DEFAULT_WINDOW_WIDTH/16*9
+#define  DEFAULT_WINDOW_WIDTH  800
+#define  DEFAULT_WINDOW_HEIGHT DEFAULT_WINDOW_WIDTH/4*3
 #define DEFAULT_WINDOW_TITLE   "Bug game"
 
 namespace GlfwIntegration

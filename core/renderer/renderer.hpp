@@ -32,7 +32,6 @@ namespace Gfx
 	
 	unsigned int get_quad_vao();
 	unsigned int get_quad_vbo();
-	Shader *get_main_shader();
 	
 	int init_global_quad();
 	

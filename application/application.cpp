@@ -46,6 +46,7 @@ namespace Application {
 	sprite2.rotation = glm::vec3(0.0f, 0.0f, 0.0f);
 	sprite2.position = glm::vec2(10.0f, 0.0f);
 	sprite2.scale = glm::vec2(5.0f, 5.0f);
+	sprite2.selected = true;
 	sprite2.z_index = 0;
 	
 	offset.colour = glm::vec4(255.0f, 0.0f, 0.0f, 255.0f);

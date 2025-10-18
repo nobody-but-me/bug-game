@@ -4,6 +4,9 @@
 #include <string>
 #include <vector>
 
+#include <libs/glad.h>
+#include <GLFW/glfw3.h>
+
 #include <utils/resource_manager.hpp>
 #include <renderer/renderer.hpp>
 #include <common/animation.hpp>
@@ -16,6 +19,7 @@ namespace ResourceManager
     
     std::vector<Animation *> g_animations;
     std::vector<Texture *> g_textures;
+    std::vector<Shader *> g_shaders;
     std::vector<Object *> g_objects;
     
     Animation *get_animation(std::string animation_name) {
@@ -27,6 +31,12 @@ namespace ResourceManager
 	auto texture = std::find_if(g_textures.begin(), g_textures.end(), [&](const Texture *tex) { return tex->name == texture_name; });
 	if (texture != g_textures.end()) return *texture;
 	else return NULL;
+    }
+    Shader *get_shader(std::string shader_program_name) {
+	auto shader = std::find_if(g_shaders.begin(), g_shaders.end(), [&](const Shader *shader) { return shader->name == shader_program_name; });
+	if (shader != g_shaders.end()) return *shader;
+	else return NULL;
+
     }
     Object *get_object(std::string object_name) {
 	auto object = std::find_if(g_objects.begin(), g_objects.end(), [&](const Object *obj) { return obj->name == object_name; });
@@ -58,6 +68,13 @@ namespace ResourceManager
 	g_textures.emplace_back(texture);
 	return;
     }
+    void load_shader(Shader *shader, std::string shader_name, std::string vertex_shader_path, std::string fragment_shader_path) {
+	if (fragment_shader_path == "") return;
+	if (vertex_shader_path == "") return;
+	molson(init_shader)(shader_name.c_str(), vertex_shader_path.c_str(), fragment_shader_path.c_str(), shader);
+	g_shaders.emplace_back(shader);
+	return;
+    }
     
     void init_rectangle(Object *rectangle, std::string object_name, Texture *texture) {
 	Gfx::Renderer::init_rect(rectangle, texture, object_name);
@@ -73,7 +90,9 @@ namespace ResourceManager
 	return;
     }
     void render_objects() {
-	for (Object *obj : g_objects) { Gfx::Renderer::render_object(obj); }
+	for (Object *obj : g_objects) {
+	    Gfx::Renderer::render_object(obj);
+	}
 	return;
     }
     

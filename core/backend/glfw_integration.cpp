@@ -119,6 +119,7 @@ namespace GlfwIntegration
 	}
 	glEnable(GL_BLEND); glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glEnable(GL_SAMPLE_ALPHA_TO_COVERAGE); // NOTE: alpha to coverage method to render transparency. Study depth peeling later.
+	glEnable(GL_STENCIL_TEST);
 	glEnable(GL_MULTISAMPLE);
 	glEnable(GL_DEPTH_TEST);
 	

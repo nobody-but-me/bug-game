@@ -26,13 +26,15 @@ typedef struct {
     unsigned int fragment_shader;
     unsigned int vertex_shader;
     unsigned int ID;
+    
+    const char *name;
 } Shader;
 
 const char *molson(file_to_char)(const char *file_path);
 
 Texture molson(load_texture)(const char *name, const char *file_path, bool alpha);
 
-int molson(init_shader)(const char *vertex_path, const char *fragment_path, Shader *shader);
+int molson(init_shader)(const char *shader_name, const char *vertex_path, const char *fragment_path, Shader *shader);
 void molson(destroy_shader)(Shader *shader);
 void molson(use_shader)(Shader *shader);
 
@@ -185,7 +187,8 @@ Texture molson(load_texture)(const char *name, const char *file_path, bool alpha
 	- 
     Again: that is what works for me and this is, for sure, not the better approach. Any changes suggestions would be welcome.
 */
-int molson(init_shader)(const char *vertex_path, const char *fragment_path, Shader *shader) {
+int molson(init_shader)(const char *shader_name, const char *vertex_path, const char *fragment_path, Shader *shader) {
+    shader->name = shader_name;
     long buffer_length = 0;
     
     char *fragment_buffer, *vertex_buffer;

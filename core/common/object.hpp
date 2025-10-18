@@ -37,6 +37,8 @@ class Object: public Singleton<Object>
 	
 	glm::vec4 colour;
 	
+	bool selected = false;
+	
 	void set_initialized(bool new_initialized)	    { this->m_initialized = new_initialized; }
 	void set_transform(glm::mat4 new_transform)	    { this->m_transform = new_transform; }
 	void set_indices(unsigned int new_indices)	    { this->m_indices = new_indices; }

@@ -39,16 +39,24 @@ And follow the instructions.
     - [x] Texture loader;
     - [ ] Simple 2d lightning;
     - [x] Animated sprites;
+    - [ ] 3D model loading;
+    - [ ] Text rendering;
     - [ ] .
  - Engine utils/tools:
     - [x] Simple resource manager;
-    - [x] Simple Logging library;
+    - [x] Custom Logging library;
     - [x] Input handler;
     - [ ] Scene manager;
          - [ ] Read and parse custom format and data files;
 	 - [ ] .
+    - [ ] Object selecting and moving;
+    - [ ] Scripting implementation;
+    - [ ] Shader hot-reloading;
     - [ ] .
  - Physics:
     - [x] Simple collision detection between rectangles;
+    - [ ] Simple collision detection between capsules;
+    - [ ] Rigid body physics;
+    - [ ] Soft body physics;
     - [ ] .
  - .
